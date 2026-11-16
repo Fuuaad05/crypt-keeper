@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Build before finishing a task",
+      "trigger": "PostTaskExec",
+      "description": "Runs the full type-check and production build after each spec task completes.",
+      "action": {
+        "type": "command",
+        "command": "npm run build",
+        "timeout": 180
+      }
+    }
+  ]
+}

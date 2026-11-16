@@ -1,0 +1,15 @@
+{
+  "version": "v1",
+  "hooks": [
+    {
+      "name": "Keep scene math and rings in sync",
+      "trigger": "PostFileSave",
+      "description": "Prevents the visual rings from drifting away from the ghost placement formula.",
+      "matcher": "src[\\\\/](lib[\\\\/]haunting\\.ts|components[\\\\/]Graveyard\\.tsx)$",
+      "action": {
+        "type": "agent",
+        "prompt": "A file that defines the graveyard geometry was saved. Check that the placement math in placeGhosts (lib/haunting.ts: centre 50% / 86%, x radius 44, y radius 74) still matches the SVG ring ellipses and ring label positions in components/Graveyard.tsx and styles.css. If they drifted, fix them and say what changed. If they match, say nothing."
+      }
+    }
+  ]
+}
