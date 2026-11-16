@@ -48,8 +48,6 @@ export function Graveyard({ tasks, now, sanity, selectedId, banishingId, onSelec
         ))}
       </div>
       <div className="moon" aria-hidden="true" />
-      <div className="fog fog-a" aria-hidden="true" />
-      <div className="fog fog-b" aria-hidden="true" />
 
       <svg className="rings" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
         {[0.38, 0.62, 0.86].map((r, i) => (

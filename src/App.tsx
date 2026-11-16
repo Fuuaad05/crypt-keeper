@@ -12,6 +12,7 @@ import { DetailCard } from "./components/DetailCard";
 import { TaskForm } from "./components/TaskForm";
 import { Hud } from "./components/Hud";
 import { Menu } from "./components/Menu";
+import { Landing } from "./components/Landing";
 
 interface Toast {
   message: string;
@@ -41,6 +42,26 @@ export default function App() {
   const toastTimer = useRef<number | undefined>(undefined);
   const notified = useRef<Set<string>>(loadNotified());
   const seeded = useRef(false);
+  const [page, setPage] = useState<"landing" | "app">(() =>
+    window.location.hash === "#crypt" ||
+    new URLSearchParams(window.location.search).get("demo") === "1" ||
+    data.tasks.length > 0
+      ? "app"
+      : "landing",
+  );
+
+  useEffect(() => {
+    const onHash = () => setPage(window.location.hash === "#crypt" ? "app" : "landing");
+    window.addEventListener("hashchange", onHash);
+    return () => window.removeEventListener("hashchange", onHash);
+  }, []);
+
+  function enter(withSamples: boolean) {
+    if (withSamples && tasks.length === 0) dispatch({ type: "demo", now: Date.now() });
+    window.location.hash = "crypt";
+    setPage("app");
+    window.scrollTo(0, 0);
+  }
 
   const { tasks, settings } = data;
 
@@ -184,6 +205,8 @@ export default function App() {
     return () => window.removeEventListener("keydown", onKey);
   }, [openNew]);
 
+  if (page === "landing") return <Landing onEnter={enter} />;
+
   return (
     <div className="app">
       <GhostDefs />
@@ -198,6 +221,16 @@ export default function App() {
           </div>
         </div>
         <div className="top-actions">
+          <button
+            type="button"
+            className="btn"
+            onClick={() => {
+              window.location.hash = "";
+              window.scrollTo(0, 0);
+            }}
+          >
+            Guide
+          </button>
           <Menu
             data={data}
             onSettings={(patch) => dispatch({ type: "settings", patch })}

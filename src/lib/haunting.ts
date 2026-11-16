@@ -116,7 +116,7 @@ export function hash(str: string): number {
   return h >>> 0;
 }
 
-const COURSE_COLORS = ["#c9b8ff", "#8be9d0", "#ffb86b", "#ff8fab", "#8bc5ff", "#d7f58b", "#f0a6ff", "#ffe08a"];
+const COURSE_COLORS = ["#efe8d8", "#8fd3bd", "#f2b84b", "#f09a8a", "#9cc3e8", "#cfe08a", "#e9b3c9", "#d9b98a"];
 
 export function courseColor(course: string): string {
   return COURSE_COLORS[hash(course.trim().toLowerCase()) % COURSE_COLORS.length];
